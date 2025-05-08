@@ -1,0 +1,106 @@
+const blogModel = require("../models/blog.model");
+
+const path = require("path");
+
+// get all blogs
+const getAllbogsController = async (req, res) => {
+  try {
+    const blogs = await blogModel.find({}).sort({ createdAt: -1 });
+    res.status(200).json({
+      status: true,
+      message: "blogs fetched successfully",
+      data: blogs,
+    });
+  } catch (error) {
+    clgonsole.log(error);
+    res.status(500).json({
+      message: "Error in getting blogs",
+      status: false,
+      error,
+    });
+  }
+};
+
+//Create blog controller
+const createBlogController = async (req, res) => {
+  const { title, content, author } = req.body || {};
+
+  try {
+    const newBlog = await blogModel.create({
+      title,
+      content,
+      image: req.file?.path || null,
+      author,
+    });
+    res.status(200).json({
+      status: true,
+      message: "blog created successfully",
+      data: newBlog,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Error in creating blog",
+      status: false,
+      error,
+    });
+  }
+};
+
+//update blog controller
+const updateBlogController = async (req, res) => {
+  const { id } = req.params;
+  const { title, content, author } = req.body || {};
+  const image = req.file?.path || null;
+  console.log(req.body, req.file);
+  console.log(id, "ami id");
+  try {
+    const updatedBlog = await blogModel.findByIdAndUpdate(
+      { _id: id },
+      {
+        title,
+        content,
+        image,
+        author,
+      }
+    );
+    res.status(200).json({
+      status: true,
+      message: "blog updated successfully",
+      data: updatedBlog,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Error in updating blog",
+      status: false,
+      error,
+    });
+  }
+};
+
+//delete blog controller
+const deleteBlogController = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deletedBlog = await blogModel.findByIdAndDelete({ _id: id });
+    res.status(200).json({
+      status: true,
+      message: "blog deleted successfully",
+      data: deletedBlog,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Error in deleting blog",
+      status: false,
+      error,
+    });
+  }
+};
+
+module.exports = {
+  createBlogController,
+  getAllbogsController,
+  updateBlogController,
+};
