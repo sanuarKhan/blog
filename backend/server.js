@@ -7,7 +7,7 @@ const cors = require("cors");
 const db_connection = require("./src/config/db");
 const { port } = require("./src/constant");
 const blogRouter = require("./src/routes/blog.route");
-// const doctorRouter = require("./src/routes/doctor.routes");
+const userRouter = require("./src/routes/user.route");
 // const adminRouter = require("./src/routes/admin.routes");
 
 //rest object
@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //routes
 app.use("/api/v1/blog", blogRouter);
-// app.use("/api/v1/doctor", doctorRouter);
+app.use("/api/v1/user", userRouter);
 // app.use("/api/v1/admin", adminRouter);
 
 // //static files

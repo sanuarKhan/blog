@@ -19,9 +19,9 @@ export default function Blog() {
   return (
     <div className="flex flex-col items-center justify-center w-full h-full py-10 container mx-auto">
       <h1 className="opacity-80 text-3xl font-bold text-white bg-gray-600 p-5 w-full h-20 rounded-lg shadow-2xl shadow-blue-950 text-center">
-        Expore the Blog
+        Explore the Blogs
       </h1>
-      <p className="text-gray-300 text-center mt-5 w-full h-20 rounded-lg shadow-2xl shadow-blue-950 p-5">
+      <p className="text-gray-300 text-center mt-5 w-full  p-5">
         Welcome to the blog page! Here you can find various articles and posts.
       </p>
       <div className="flex flex-col gap-5 mt-10 w-full h-full p-5 bg-gray-800 rounded-lg shadow-2xl shadow-blue-950">
