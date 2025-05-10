@@ -1,9 +1,12 @@
 import axios from "axios";
+import moment from "moment";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 const base_URL = import.meta.env.VITE_BASE_URL;
 
 export default function Blog() {
   const [posts, setPosts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getPosts = async () => {
@@ -28,19 +31,26 @@ export default function Blog() {
         {posts.map((post) => (
           <div
             key={post._id}
-            className="bg-gray-700 p-5 rounded-lg shadow-lg shadow-blue-950 flex gap-10 items-center"
+            className="bg-gray-700 p-5 rounded-lg shadow-lg shadow-blue-950 flex gap-10"
+            onClick={() => {
+              navigate(`/blog/${post._id}`);
+            }}
           >
             <img
               src={post.image}
               alt={post.title}
               className="w-30 h-25 object-cover rounded-lg mb-4"
             />
-            <div>
+            <div className="flex flex-col gap-2">
               <h2 className="text-xl font-bold text-white">{post.title}</h2>
               <p className="text-gray-300">{post.content}</p>
-              <span className="text-gray-300">{post.createdAt}</span>
-              <span className="text-gray-300">{post.updatedAt}</span>
-              <span className="text-gray-300">{post.author}</span>
+              <div>
+                <span className="text-gray-300 me-2">
+                  {moment(post.createdAt).fromNow()}
+                </span>
+
+                <span className="text-gray-300 me-2">by {post.author}</span>
+              </div>
             </div>
           </div>
         ))}

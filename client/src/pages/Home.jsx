@@ -1,12 +1,14 @@
 import { message } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 const base_URL = import.meta.env.VITE_BASE_URL;
 
 console.log(base_URL);
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getPosts = async () => {
@@ -32,6 +34,9 @@ export default function Home() {
           <div
             key={post._id}
             className="bg-gray-700 p-5 rounded-lg shadow-lg shadow-blue-950 flex gap-10 items-center"
+            onClick={() => {
+              navigate(`/blog/${post._id}`);
+            }}
           >
             <img
               src={post.image}

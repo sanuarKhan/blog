@@ -20,6 +20,25 @@ const getAllbogsController = async (req, res) => {
     });
   }
 };
+//get single blog
+const getSingleBlogController = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const blog = await blogModel.findById({ _id: id });
+    res.status(200).json({
+      status: true,
+      message: "blog fetched successfully",
+      data: blog,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Error in getting blog",
+      status: false,
+      error,
+    });
+  }
+};
 
 //Create blog controller
 const createBlogController = async (req, res) => {
@@ -103,4 +122,6 @@ module.exports = {
   createBlogController,
   getAllbogsController,
   updateBlogController,
+  deleteBlogController,
+  getSingleBlogController,
 };
