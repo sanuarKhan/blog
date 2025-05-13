@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 export default function DashBoard() {
@@ -10,9 +9,31 @@ export default function DashBoard() {
           <Link to="/create" className="bg-gray-400 p-2 rounded-md text-center">
             Create Blog
           </Link>
-          <li className="bg-gray-400 p-2 rounded-md text-center">My Blogs</li>
-          <li className="bg-gray-400 p-2 rounded-md text-center">My Profile</li>
-          <li className="bg-gray-400 p-2 rounded-md text-center ">Settings</li>
+          <Link
+            to="/my-blogs"
+            className="bg-gray-400 p-2 rounded-md text-center"
+          >
+            My Blogs
+          </Link>
+          <Link
+            to="/profile"
+            className="bg-gray-400 p-2 rounded-md text-center"
+          >
+            My Profile
+          </Link>
+          <Link
+            to="/settings"
+            className="bg-gray-400 p-2 rounded-md text-center "
+          >
+            Settings
+          </Link>
+          <Link
+            to="/login"
+            className="bg-gray-400 p-2 rounded-md text-center"
+            onClick={() => localStorage.clear()}
+          >
+            Logout
+          </Link>
         </ul>
       </div>
       <div3 className="w-3/4 flex gap-5 h-full">

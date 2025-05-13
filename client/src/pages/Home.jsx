@@ -10,17 +10,18 @@ export default function Home() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 
+  const getPosts = async () => {
+    try {
+      const res = await axios.get(`${base_URL}/api/v1/blog/blogs`);
+      message.success("Posts fetched successfully");
+      setPosts(res.data.data);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      message.error("Error fetching posts");
+    }
+  };
+
   useEffect(() => {
-    const getPosts = async () => {
-      try {
-        const res = await axios.get(`${base_URL}/api/v1/blog/blogs`);
-        message.success("Posts fetched successfully");
-        setPosts(res.data.data);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-        message.error("Error fetching posts");
-      }
-    };
     getPosts();
   }, []);
 
