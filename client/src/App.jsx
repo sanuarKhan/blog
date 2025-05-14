@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import SingleBlog from "./pages/SingleBlog";
+import UpdateBlog from "./pages/UpdateBlog";
 
 export default function App() {
   return (
@@ -22,7 +23,7 @@ export default function App() {
               <Route path="/blog" element={<Blog />} />
               <Route path="/about-me" element={<About />} />
               <Route path="/create" element={<CreateBlog />} />
-              <Route path="/update/:id" element={<CreateBlog />} />
+              <Route path="/update/:id" element={<UpdateBlog />} />
               <Route path="/blog/:id" element={<SingleBlog />} />
               <Route path="/dashboard" element={<DashBoard />} />
             </Route>
