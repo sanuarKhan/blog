@@ -1,6 +1,6 @@
 import { message } from "antd";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const BaseURL = import.meta.env.VITE_BASE_URL;
 console.log(BaseURL);
 
@@ -36,10 +36,10 @@ export default function Register() {
     }
   };
   return (
-    <div className="  flex flex-col  items-center justify-center  bg-gradient-to-tr from-slate-800 to-gray-500 rounded-lg shadow-lg w-1/3 h-auto p-5 m-auto mt-10">
+    <div className="container mx-auto flex flex-col items-center justify-center w-full h-screen ">
       <h1 className="text-center text-2xl text-blue-200">Register</h1>
       <form
-        className="text-cyan-400 p-3 flex flex-col gap-4 w-full "
+        className="text-cyan-400 p-3 flex flex-col gap-4  bg-gradient-to-tr from-slate-800 to-gray-500 rounded-lg shadow-lg  p-10 w-[50%] h-auto "
         onSubmit={handleSubmit}
       >
         <div className="flex gap-5 bg-gray-800 rounded-lg p-2">
@@ -78,6 +78,16 @@ export default function Register() {
         >
           Register
         </button>
+        <p className="text-center text-fuchsia-300">
+          Have an account ?{" "}
+          <Link
+            to="/login"
+            onClick={() => navigate("/login")}
+            className="underline text-blue-500"
+          >
+            Login{" "}
+          </Link>
+        </p>
       </form>
     </div>
   );

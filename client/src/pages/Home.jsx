@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 const base_URL = import.meta.env.VITE_BASE_URL;
 
-console.log(base_URL);
-
 export default function Home() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
@@ -26,7 +24,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="mx-auto flex justify-center flex-col w-full bg-gradient-to-bl to-gray-900 from-teal-600 container">
+    <div className="mx-auto flex justify-center flex-col w-full bg-gradient-to-bl to-gray-900 from-teal-600 container ">
       <h1 className="opacity-80 text-3xl font-bold text-white bg-gray-600 p-5 w-full h-20 rounded-lg shadow-2xl shadow-blue-950 text-center mt-20">
         Welcome to my blog
       </h1>

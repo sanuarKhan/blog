@@ -1,6 +1,5 @@
 const blogModel = require("../models/blog.model");
-
-const path = require("path");
+const userModel = require("../models/user.model");
 
 // get all blogs
 const getAllbogsController = async (req, res) => {
@@ -12,7 +11,7 @@ const getAllbogsController = async (req, res) => {
       data: blogs,
     });
   } catch (error) {
-    clgonsole.log(error);
+    console.log(error);
     res.status(500).json({
       message: "Error in getting blogs",
       status: false,
@@ -42,7 +41,10 @@ const getSingleBlogController = async (req, res) => {
 
 //Create blog controller
 const createBlogController = async (req, res) => {
-  const { title, content, author } = req.body || {};
+  const { title, content } = req.body || {};
+  const authorId = req.user.id;
+  const user = await userModel.findById({ _id: authorId });
+  const author = user.username;
 
   try {
     const newBlog = await blogModel.create({
@@ -56,6 +58,9 @@ const createBlogController = async (req, res) => {
       message: "blog created successfully",
       data: newBlog,
     });
+    user.blogs.push(newBlog);
+    await user.save();
+    console.log(user);
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -69,10 +74,11 @@ const createBlogController = async (req, res) => {
 //update blog controller
 const updateBlogController = async (req, res) => {
   const { id } = req.params;
-  const { title, content, author } = req.body || {};
+  const user = await userModel.findById({ _id: req.user.id });
+  const { title, content } = req.body || {};
   const image = req.file?.path || null;
-  console.log(req.body, req.file);
-  console.log(id, "ami id");
+  // console.log(req.body, req.file);
+  // console.log(id, "ami id");
   try {
     const updatedBlog = await blogModel.findByIdAndUpdate(
       { _id: id },
@@ -80,7 +86,9 @@ const updateBlogController = async (req, res) => {
         title,
         content,
         image,
-        author,
+      },
+      {
+        new: true,
       }
     );
     res.status(200).json({

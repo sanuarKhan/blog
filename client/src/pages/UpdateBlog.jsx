@@ -11,54 +11,10 @@ export default function UpdateBlog() {
   const [content, setContent] = useState("");
 
   const [loading, setLoading] = useState(false);
-  console.log(loading);
+
   const navigate = useNavigate();
   const { id } = useParams();
 
-  // handle post request to create a blog
-  const handleUpdate = async (e) => {
-    e.preventDefault();
-
-    try {
-      setLoading(true);
-
-      // Create a FormData object to handle file upload
-      const formData = new FormData();
-      formData.append("title", title);
-      formData.append("content", content);
-      formData.append("author", "khan"); // TODO
-
-      // Only append image if it exists
-      if (image) {
-        formData.append("image", image);
-      }
-
-      const response = await axios.put(
-        `${base_URL}/api/v1/blog/update/${id}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data", // Important for file uploads
-          },
-        }
-      );
-
-      console.log(" updated:", response.data);
-
-      // Reset form
-      setTitle("");
-      setContent("");
-      setImage(null);
-
-      // Navigate to blog list
-      navigate("/blog");
-    } catch (error) {
-      console.error("Error Updating blog:", error);
-      message.error("Error Updating blog");
-    } finally {
-      setLoading(false);
-    }
-  };
   // const handleCancel = () => {
   //   navigate("/blog");
   // };
@@ -77,6 +33,53 @@ export default function UpdateBlog() {
   useEffect(() => {
     getCurrentBlog(id);
   }, []);
+
+  // handle post request to create a blog
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+
+      // Create a FormData object to handle file upload
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("content", content);
+
+      // Only append image if it exists
+      if (image) {
+        formData.append("image", image);
+      }
+
+      const response = await axios.put(
+        `${base_URL}/api/v1/blog/update/${id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      message.success(response.data.message);
+
+      // console.log(" updated:", response.data);
+
+      // Reset form
+      // setTitle("");
+      // setContent("");
+      // setImage(null);
+
+      // Navigate to blog list
+      navigate("/blog");
+    } catch (error) {
+      console.error("Error Updating blog:", error);
+      message.error("Error Updating blog");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="relative container mx-auto h-full w-full flex flex-col gap-10 bg-gray-900 p-10 m-5">
@@ -108,11 +111,19 @@ export default function UpdateBlog() {
               }}
             />
             {image ? (
-              <img
-                src={image}
-                alt="Selected thumbnail"
-                className="w-full h-full object-cover"
-              />
+              typeof image === "string" ? (
+                <img
+                  className="w-full h-full object-cover"
+                  src={image}
+                  alt="Preview"
+                />
+              ) : (
+                <img
+                  className="w-full h-full object-cover"
+                  src={URL.createObjectURL(image)}
+                  alt="Preview"
+                />
+              )
             ) : (
               <span className="text-cyan-200">Upload a thumbnail</span>
             )}
@@ -142,7 +153,6 @@ export default function UpdateBlog() {
           type="submit"
           disabled={loading}
         >
-          {console.log(loading)}
           {loading ? "Updating..." : "Update"}
         </button>
       </form>

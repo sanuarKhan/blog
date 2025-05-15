@@ -3,6 +3,7 @@ const userModel = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+//user register controller
 const userRegisterController = async (req, res) => {
   const { username, email, password } = req.body;
   try {
@@ -39,6 +40,7 @@ const userRegisterController = async (req, res) => {
     });
   }
 };
+//user login controller
 const userLoginController = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -73,4 +75,25 @@ const userLoginController = async (req, res) => {
     });
   }
 };
-module.exports = { userRegisterController, userLoginController };
+//user auth controller
+const userAuthController = async (req, res) => {
+  try {
+    res.status(200).json({
+      success: true,
+      message: "User authenticated successfully",
+      data: req.user,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Error in authenticating user",
+      success: false,
+      error,
+    });
+  }
+};
+module.exports = {
+  userRegisterController,
+  userLoginController,
+  userAuthController,
+};

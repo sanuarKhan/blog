@@ -36,6 +36,7 @@ export default function CreateBlog() {
         {
           headers: {
             "Content-Type": "multipart/form-data", // Important for file uploads
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );

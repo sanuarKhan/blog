@@ -1,6 +1,6 @@
 import { message } from "antd";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const base_URL = import.meta.env.VITE_BASE_URL;
 export default function Login() {
   const navigate = useNavigate();
@@ -23,12 +23,12 @@ export default function Login() {
     }
   };
   return (
-    <div className=" bg-gradient-to-tr from-slate-800 to-gray-500 rounded-lg shadow-lg  p-10 w-[50%] h-auto">
+    <div className="container mx-auto flex flex-col items-center justify-center bg-gradient-to-tr from-slate-800 to-gray-500 rounded-lg shadow-lg  p-10 w-[50%] h-auto">
       <h1 className="text-center text-2xl text-blue-200">Login</h1>
       <form
         action={`${base_URL}/api/v1/user/login`}
         method="POST"
-        className="text-cyan-400 p-3 flex flex-col gap-4 w-full "
+        className="text-cyan-400 p-3 flex flex-col gap-4 w-full"
         onSubmit={handleSubmit}
       >
         <div className="flex gap-5 bg-gray-800 rounded-lg p-2">
@@ -58,6 +58,12 @@ export default function Login() {
           Login
         </button>
       </form>
+      <p className="mt-4 text-fuchsia-300">
+        Don't have an account?
+        <Link to="/register" className="text-blue-400 px-2">
+          Register
+        </Link>
+      </p>
     </div>
   );
 }

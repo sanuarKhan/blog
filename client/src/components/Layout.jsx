@@ -3,10 +3,10 @@ import Navber from "./Navber";
 
 export default function Layout() {
   return (
-    <div>
+    <>
       <Navber />
 
       <Outlet />
-    </div>
+    </>
   );
 }
