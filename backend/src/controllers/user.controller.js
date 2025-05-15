@@ -92,8 +92,29 @@ const userAuthController = async (req, res) => {
     });
   }
 };
+//user blogs controller
+const userBlogsController = async (req, res) => {
+  console.log(req.user);
+  try {
+    const user = await userModel.findById(req.user.id).populate("blogs");
+    console.log(user);
+    res.status(200).json({
+      success: true,
+      message: "User blogs fetched successfully",
+      data: user.blogs,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Error in fetching user blogs",
+      success: false,
+      error,
+    });
+  }
+};
 module.exports = {
   userRegisterController,
   userLoginController,
   userAuthController,
+  userBlogsController,
 };

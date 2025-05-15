@@ -23,8 +23,7 @@ export default function Register() {
           },
         }
       );
-      console.log(res);
-      console.log(res.data);
+
       if (res.data.success) {
         message.success(res.data.message);
         navigate("/login");

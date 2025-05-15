@@ -3,7 +3,7 @@ import Layout from "./components/Layout";
 import About from "./pages/About";
 import Blog from "./pages/Blog";
 import CreateBlog from "./pages/CreateBlog";
-import DashBoard from "./pages/DashBoard";
+import DashBoard from "./pages/dashBoard/DashBoard";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
