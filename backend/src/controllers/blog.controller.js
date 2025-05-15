@@ -52,15 +52,16 @@ const createBlogController = async (req, res) => {
       content,
       image: req.file?.path || null,
       author,
+      user: authorId,
     });
     res.status(200).json({
       status: true,
       message: "blog created successfully",
       data: newBlog,
     });
-    user.blogs.push(newBlog);
-    await user.save();
-    console.log(user);
+    // user.blogs.push(newBlog._id);
+    // await user.save();
+    // console.log(user);
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -74,22 +75,30 @@ const createBlogController = async (req, res) => {
 //update blog controller
 const updateBlogController = async (req, res) => {
   const { id } = req.params;
-  const user = await userModel.findById({ _id: req.user.id });
-  const { title, content } = req.body || {};
-  const image = req.file?.path || null;
-  // console.log(req.body, req.file);
-  // console.log(id, "ami id");
   try {
+    const blog = await blogModel.findById(id);
+    if (!blog) {
+      return res.status(404).json({ status: false, message: "Blog not found" });
+    }
+    // Authorization check
+    if (blog.user.toString() !== req.user.id) {
+      return res.status(403).json({
+        status: false,
+        message: "Unauthorized: You can only update your own blog",
+      });
+    }
+
+    const { title, content } = req.body || {};
+    const image = req.file?.path;
+
     const updatedBlog = await blogModel.findByIdAndUpdate(
-      { _id: id },
+      id,
       {
         title,
         content,
-        image,
+        ...(image && { image }),
       },
-      {
-        new: true,
-      }
+      { new: true }
     );
     res.status(200).json({
       status: true,
@@ -110,7 +119,19 @@ const updateBlogController = async (req, res) => {
 const deleteBlogController = async (req, res) => {
   const { id } = req.params;
   try {
-    const deletedBlog = await blogModel.findByIdAndDelete({ _id: id });
+    const blog = await blogModel.findById(id);
+    if (!blog) {
+      return res.status(404).json({ status: false, message: "Blog not found" });
+    }
+    // Authorization check
+    if (blog.user.toString() !== req.user.id) {
+      return res.status(403).json({
+        status: false,
+        message: "Unauthorized: You can only delete your own blog",
+      });
+    }
+
+    const deletedBlog = await blogModel.findByIdAndDelete(id);
     res.status(200).json({
       status: true,
       message: "blog deleted successfully",

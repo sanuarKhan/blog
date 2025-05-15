@@ -31,14 +31,14 @@ export default function SingleBlog() {
     getSinglePost();
   }, []);
   return (
-    <div className="container mx-auto py-10 bg-gray-700">
+    <div className="container mx-auto p-10 bg-gray-700">
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div>
+        <div className="flex flex-col gap-10 justify-center items-center">
           <h2 className="text-3xl font-bold text-white">{post.title}</h2>
-          <p className="text-white">{post.content}</p>
-          <img src={post.image} alt={post.title} />
+          <p className="text-white w-1/2 leading-loose">{post.content}</p>
+          <img src={post.image} alt={post.title} className="w-1/2 " />
         </div>
       )}
     </div>

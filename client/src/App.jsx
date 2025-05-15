@@ -12,7 +12,7 @@ import UpdateBlog from "./pages/UpdateBlog";
 
 export default function App() {
   return (
-    <div className=" bg-gradient-to-bl to-gray-900 from-indigo-600 w-full h-screen">
+    <div className=" bg-gradient-to-bl to-gray-900 from-indigo-600 w-full h-full">
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>

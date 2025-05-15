@@ -20,8 +20,9 @@ const userSchema = new mongoose.Schema(
       default: null,
     },
     blogs: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: [mongoose.Schema.Types.ObjectId],
       ref: "Blog",
+      default: [],
     },
     isAdmin: {
       type: Boolean,

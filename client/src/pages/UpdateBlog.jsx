@@ -46,8 +46,8 @@ export default function UpdateBlog() {
       formData.append("title", title);
       formData.append("content", content);
 
-      // Only append image if it exists
-      if (image) {
+      // Only append image if it's a File (new upload)
+      if (image && typeof image !== "string") {
         formData.append("image", image);
       }
 

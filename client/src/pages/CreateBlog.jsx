@@ -23,7 +23,6 @@ export default function CreateBlog() {
       const formData = new FormData();
       formData.append("title", title);
       formData.append("content", content);
-      formData.append("author", "khan"); // Consider getting this from user context/auth
 
       // Only append image if it exists
       if (image) {
@@ -41,7 +40,7 @@ export default function CreateBlog() {
         }
       );
 
-      console.log("Blog created:", response.data);
+      message.success(response.data.message);
 
       // Reset form
       setTitle("");

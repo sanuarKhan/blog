@@ -23,12 +23,12 @@ export default function Login() {
     }
   };
   return (
-    <div className="container mx-auto flex flex-col items-center justify-center bg-gradient-to-tr from-slate-800 to-gray-500 rounded-lg shadow-lg  p-10 w-[50%] h-auto">
+    <div className="container mx-auto flex flex-col items-center justify-center w-full h-screen ">
       <h1 className="text-center text-2xl text-blue-200">Login</h1>
       <form
         action={`${base_URL}/api/v1/user/login`}
         method="POST"
-        className="text-cyan-400 p-3 flex flex-col gap-4 w-full"
+        className="text-cyan-400 flex flex-col gap-4  bg-gradient-to-tr from-slate-800 to-gray-500 rounded-lg shadow-lg  p-10 w-[50%] h-auto "
         onSubmit={handleSubmit}
       >
         <div className="flex gap-5 bg-gray-800 rounded-lg p-2">
